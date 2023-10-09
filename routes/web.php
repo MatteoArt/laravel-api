@@ -26,10 +26,19 @@ Route::get('/admin', function () {
 
 //CRUD admin (back-office)---------------------
 Route::middleware(['auth', 'verified'])
+->name('admin.')
 ->prefix('admin')->group(function () {
+    //CREATE
+    Route::get('/create', [ProjectController::class, 'create'])->name('projects.create');
+
     //READ
-    Route::get('/projects', [ProjectController::class, 'index'])->name('admin.projects.index');
-    Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('admin.projects.show');
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+    Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
+
+    //UPDATE
+
+
+    //DELETE
 });
 
 
