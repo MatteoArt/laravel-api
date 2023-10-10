@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified'])
 ->prefix('admin')->group(function () {
     //CREATE
     Route::get('/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
 
     //READ
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');

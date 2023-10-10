@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+    <h2 class="mb-3 mt-4 text-center">Aggiungi un progetto</h2>
     <form action="" method="POST" class="w-50 m-auto mt-3">
+        @csrf
+        
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">
                 <label for="titolo">Nome progetto</label>
