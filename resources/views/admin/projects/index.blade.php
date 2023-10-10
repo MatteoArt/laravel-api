@@ -11,6 +11,7 @@
               <th scope="col">Linguaggi</th>
               <th scope="col">Repository</th>
               <th scope="col">Pagina progetto</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +33,14 @@
                     </td>
                     <td>  
                         <a href="{{ $project->page_project }}" target="_blank"> {{ $project->page_project }} </a>
+                    </td>
+                    <td>
+                        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+                            @csrf
+
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger" value="Elimina">
+                        </form>
                     </td>
                 </tr>
             @endforeach
