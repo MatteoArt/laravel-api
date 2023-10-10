@@ -31,6 +31,19 @@ class ProjectController extends Controller
     }
 
     public function store(Request $request) {
+        $data = $request->validate([
+            'title' => 'required|unique:projects,title|string|max:150',
+            'description' => 'required|string',
+            'img' => 'required|string|max:200',
+            'languages' => 'required|string',
+            'repository' => 'required|string|max:1000',
+            'page_project' => 'nullable|string|max:1000'
+        ]);
 
+        $newProject = new Project();
+        $newProject->fill($data);
+        $newProject->save();
+
+        return redirect()->route('admin.projects.index');
     }
 }
