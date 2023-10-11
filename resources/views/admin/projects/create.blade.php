@@ -63,6 +63,12 @@
         @if($errors->has('page_project'))
             <div class="text-danger my-error-message">{{ $errors->first('page_project') }}</div>
         @endif
-        <button type="submit" class="btn btn-success">Aggiungi</button>
+        <label for="tipologia">Tipologia progetto</label>
+        <select name="type_id" id="tipologia" class="form-select">
+            @foreach ($types as $type)
+                <option value="{{ $type->id }}">{{ $type->name }}</option>
+            @endforeach
+        </select>
+        <button type="submit" class="btn btn-success mt-3">Aggiungi</button>
     </form>
 @endsection

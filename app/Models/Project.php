@@ -16,6 +16,7 @@ class Project extends Model
         'languages',
         'repository',
         'page_project',
+        'type_id'
     ];
 
     public function type() {

@@ -8,6 +8,13 @@
                 <h5 class="card-title"> {{ $project->title }} </h5>
                 <span>ID: {{ $project->id }} </span>
             </div>
+
+            @if ($project->type_id)
+                <div>
+                    <span class="text-info">{{ $project->type->name }}</span>
+                </div>
+            @endif
+
             <p class="card-text">
                 {{ $project->description }}
             </p>

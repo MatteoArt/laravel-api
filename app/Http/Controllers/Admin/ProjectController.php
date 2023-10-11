@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Project;
+use App\Models\Type;
 
 class ProjectController extends Controller
 {
@@ -27,7 +28,11 @@ class ProjectController extends Controller
     }
 
     public function create() {
-        return view('admin.projects.create');
+        $types = Type::all();
+
+        return view('admin.projects.create',[
+            'types' => $types
+        ]);
     }
 
     public function store(Request $request) {
@@ -37,7 +42,8 @@ class ProjectController extends Controller
             'img' => 'required|string|max:200',
             'languages' => 'required|string',
             'repository' => 'required|string|max:1000',
-            'page_project' => 'nullable|string|max:1000'
+            'page_project' => 'nullable|string|max:1000',
+            'type_id' => 'nullable|exists:types,id'
         ]);
 
         $data['languages'] = json_encode($data['languages']);
@@ -51,9 +57,11 @@ class ProjectController extends Controller
 
     public function edit($id) {
         $project = Project::findOrFail($id);
+        $types = Type::all();
 
         return view('admin.projects.edit', [
-            'project' => $project
+            'project' => $project,
+            'types' => $types
         ]);
     }
 
@@ -66,7 +74,8 @@ class ProjectController extends Controller
             'img' => 'required|string|max:200',
             'languages' => 'required|string',
             'repository' => 'required|string|max:1000',
-            'page_project' => 'nullable|string|max:1000'
+            'page_project' => 'nullable|string|max:1000',
+            'type_id' => 'nullable|exists:types,id'
         ]);
 
         $languages = explode(', ', $data['languages']);
