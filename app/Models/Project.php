@@ -17,4 +17,8 @@ class Project extends Model
         'repository',
         'page_project',
     ];
+
+    public function type() {
+        return $this->belongsTo(Type::class);
+    }
 }
