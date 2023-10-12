@@ -15,4 +15,9 @@ class Technology extends Model
         'color',
         'icon'
     ];
+
+    //una tecnologia viene usata in più progetti
+    public function projects() {
+        return $this->belongsToMany(Project::class);
+    }
 }
