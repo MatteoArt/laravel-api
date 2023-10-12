@@ -35,15 +35,6 @@
             <div class="text-danger my-error-message">{{ $errors->first('img') }}</div>
         @endif
         <div class="input-group mb-3">
-            <span class="input-group-text">
-                <label for="linguaggi">Linguaggi</label>
-            </span>
-            <textarea name="languages" id="linguaggi" class="form-control" aria-label="With textarea"></textarea>
-        </div>
-        @if($errors->has('languages'))
-            <div class="text-danger my-error-message">{{ $errors->first('languages') }}</div>
-        @endif
-        <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">
                 <label for="repo">URL Repository</label>
             </span>

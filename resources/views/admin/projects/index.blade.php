@@ -8,7 +8,7 @@
                 <th scope="col">Titolo</th>
                 <th scope="col">Descrizione</th>
                 <th scope="col">Immagine</th>
-                <th scope="col">Linguaggi</th>
+                <th scope="col">Linguaggi/Tecnologie</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Repository</th>
                 <th scope="col">Pagina progetto</th>
@@ -27,7 +27,7 @@
                         <img class="img-fluid" src="{{ $project->img }}" alt="img project">
                     </td>
                     <td>
-                        {{ implode(', ', json_decode($project->languages)) }}
+                        
                     </td>
                     <td>
                         @if ($project->type_id)

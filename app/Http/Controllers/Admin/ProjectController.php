@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 
 class ProjectController extends Controller
 {
@@ -57,11 +58,14 @@ class ProjectController extends Controller
 
     public function edit($id) {
         $project = Project::findOrFail($id);
+
         $types = Type::all();
+        $technologies = Technology::all();
 
         return view('admin.projects.edit', [
             'project' => $project,
-            'types' => $types
+            'types' => $types,
+            'technologies' => $technologies
         ]);
     }
 

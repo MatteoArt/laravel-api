@@ -18,9 +18,6 @@
             <p class="card-text">
                 {{ $project->description }}
             </p>
-            <h6 class="card-subtitle mb-3 text-body-secondary">
-                Linguaggi: {{ implode(', ', json_decode($project->languages)) }}
-            </h6>
             <a href="{{ $project->repository }}" class="btn btn-primary me-2" target="_blank">Vai alla repository</a>
             @if ($project->page_project)
                 <a href="{{ $project->page_project }}" target="_blank">Pagina del progetto</a>
