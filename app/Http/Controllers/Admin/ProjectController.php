@@ -108,6 +108,10 @@ class ProjectController extends Controller
     public function destroy($id) {
         $project = Project::findOrFail($id);
 
+        //prima di cancellare l'entità dal db elimino tramite il detach tutti i 
+        //collegamenti a quel project
+        $project->technologies()->detach();
+        
         $project->delete();
 
         return redirect()->route('admin.projects.index');

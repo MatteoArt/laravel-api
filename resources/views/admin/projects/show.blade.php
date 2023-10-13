@@ -18,6 +18,13 @@
             <p class="card-text">
                 {{ $project->description }}
             </p>
+            <div class="mt-2 mb-3">
+                <div>Linguaggi: </div>
+                @foreach ($project->technologies as $technology)
+                     <span class="d-inline-block text-success-emphasis 
+                     fw-semibold me-2">{{ $technology->name }}</span>
+                @endforeach
+            </div>
             <a href="{{ $project->repository }}" class="btn btn-primary me-2" target="_blank">Vai alla repository</a>
             @if ($project->page_project)
                 <a href="{{ $project->page_project }}" target="_blank">Pagina del progetto</a>

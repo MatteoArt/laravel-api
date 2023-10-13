@@ -27,7 +27,11 @@
                         <img class="img-fluid" src="{{ $project->img }}" alt="img project">
                     </td>
                     <td>
-                        
+                        @foreach ($project->technologies as $tecnology)
+                        <ul class="ps-0 my-list-technologies">
+                            <li>{{ $tecnology->name }}</li>
+                        </ul>
+                        @endforeach
                     </td>
                     <td>
                         @if ($project->type_id)
