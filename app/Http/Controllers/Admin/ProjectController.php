@@ -30,9 +30,11 @@ class ProjectController extends Controller
 
     public function create() {
         $types = Type::all();
+        $technologies = Technology::all();
 
         return view('admin.projects.create',[
-            'types' => $types
+            'types' => $types,
+            'technologies' => $technologies
         ]);
     }
 
@@ -41,11 +43,13 @@ class ProjectController extends Controller
             'title' => 'required|unique:projects,title|string|max:150',
             'description' => 'required|string',
             'img' => 'required|string|max:200',
-            'languages' => 'required|string',
             'repository' => 'required|string|max:1000',
             'page_project' => 'nullable|string|max:1000',
+            'technologies' => 'required|array',
             'type_id' => 'nullable|exists:types,id'
         ]);
+
+        dd($data);
 
         $data['languages'] = json_encode($data['languages']);
 
@@ -76,14 +80,14 @@ class ProjectController extends Controller
             'title' => 'required|string|max:150',
             'description' => 'required|string',
             'img' => 'required|string|max:200',
-            'languages' => 'required|string',
             'repository' => 'required|string|max:1000',
             'page_project' => 'nullable|string|max:1000',
+            'technologies' => 'required|array',
             'type_id' => 'nullable|exists:types,id'
         ]);
 
-        $languages = explode(', ', $data['languages']);
-        $data['languages'] = json_encode($languages);
+        //assegnazione delle technologies al corrente project nella tabella ponte
+        $project->technologies()->attach($data['technologies']);
 
         $project->update($data);
 

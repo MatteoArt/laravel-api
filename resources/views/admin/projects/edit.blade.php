@@ -63,20 +63,26 @@
             <div>
                 @foreach ($technologies as $technology)
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="technologies" id="{{ $technology->name }}"
+                        <input class="form-check-input" type="checkbox" name="technologies[]" id="{{ $technology->name }}"
                             value="{{ $technology->id }}">
                         <label class="form-check-label" for="{{ $technology->name }}"> {{ $technology->name }} </label>
                     </div>
                 @endforeach
             </div>
         </div>
-        <label for="tipologia">Tipologia progetto</label>
+        @if ($errors->has('technologies'))
+            <div class="text-danger my-error-message">{{ $errors->first('technologies') }}</div>
+        @endif
+        <label class="form-label" for="tipologia">Tipologia progetto</label>
         <select name="type_id" id="tipologia" class="form-select">
             @foreach ($types as $type)
                 <option value="{{ $type->id }}" {{ $project->type_id === $type->id ? 'selected' : '' }}>
                     {{ $type->name }}</option>
             @endforeach
         </select>
-        <button type="submit" class="btn btn-success">Aggiungi</button>
+        @if ($errors->has('type_id'))
+            <div class="text-danger my-error-message">{{ $errors->first('type_id') }}</div>
+        @endif
+        <button type="submit" class="btn btn-success mt-3">Modifica</button>
     </form>
 @endsection

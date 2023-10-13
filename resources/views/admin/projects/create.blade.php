@@ -12,7 +12,7 @@
             <input name="title" id="titolo" type="text" class="form-control" placeholder="Nome del progetto"
                 aria-label="Nome del progetto" aria-describedby="basic-addon1">
         </div>
-        @if($errors->has('title'))
+        @if ($errors->has('title'))
             <div class="text-danger my-error-message">{{ $errors->first('title') }}</div>
         @endif
         <div class="input-group mb-3">
@@ -21,7 +21,7 @@
             </span>
             <textarea name="description" id="descrizione" class="form-control" aria-label="With textarea"></textarea>
         </div>
-        @if($errors->has('description'))
+        @if ($errors->has('description'))
             <div class="text-danger my-error-message">{{ $errors->first('description') }}</div>
         @endif
         <div class="input-group mb-3">
@@ -31,7 +31,7 @@
             <input name="img" id="immagine" type="text" class="form-control" placeholder="Percorso immagine"
                 aria-label="Percorso immagine" aria-describedby="basic-addon1">
         </div>
-        @if($errors->has('img'))
+        @if ($errors->has('img'))
             <div class="text-danger my-error-message">{{ $errors->first('img') }}</div>
         @endif
         <div class="input-group mb-3">
@@ -41,7 +41,7 @@
             <input name="repository" id="repo" type="text" class="form-control" placeholder="URL Repository"
                 aria-label="URL Repository" aria-describedby="basic-addon1">
         </div>
-        @if($errors->has('repository'))
+        @if ($errors->has('repository'))
             <div class="text-danger my-error-message">{{ $errors->first('repository') }}</div>
         @endif
         <div class="input-group mb-3">
@@ -51,8 +51,23 @@
             <input name="page_project" id="pagina_progetto" type="text" class="form-control" placeholder="URL Progetto"
                 aria-label="URL Progetto" aria-describedby="basic-addon1">
         </div>
-        @if($errors->has('page_project'))
+        @if ($errors->has('page_project'))
             <div class="text-danger my-error-message">{{ $errors->first('page_project') }}</div>
+        @endif
+        <div class="mb-3">
+            <label class="form-label">Linguaggi/tecnologie</label>
+            <div>
+                @foreach ($technologies as $technology)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="technologies[]" id="{{ $technology->name }}"
+                            value="{{ $technology->id }}">
+                        <label class="form-check-label" for="{{ $technology->name }}"> {{ $technology->name }} </label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @if ($errors->has('technologies'))
+            <div class="text-danger my-error-message">{{ $errors->first('technologies') }}</div>
         @endif
         <label for="tipologia">Tipologia progetto</label>
         <select name="type_id" id="tipologia" class="form-select">
@@ -60,6 +75,9 @@
                 <option value="{{ $type->id }}">{{ $type->name }}</option>
             @endforeach
         </select>
+        @if ($errors->has('type_id'))
+            <div class="text-danger my-error-message">{{ $errors->first('type_id') }}</div>
+        @endif
         <button type="submit" class="btn btn-success mt-3">Aggiungi</button>
     </form>
 @endsection
