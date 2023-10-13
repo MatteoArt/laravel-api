@@ -49,13 +49,16 @@ class ProjectController extends Controller
             'type_id' => 'nullable|exists:types,id'
         ]);
 
-        dd($data);
-
-        $data['languages'] = json_encode($data['languages']);
 
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
+
+        //qui non ci sta bisogno di eseguire il detach perchè l'elemento da associare alle
+        //technologies è stato appena creato
+        //inoltre l'attach va fatto dopo che l'elemento viene salvato nel database
+
+        $newProject->technologies()->attach($data['technologies']);
 
         return redirect()->route('admin.projects.index');
     }
@@ -87,7 +90,15 @@ class ProjectController extends Controller
         ]);
 
         //assegnazione delle technologies al corrente project nella tabella ponte
-        $project->technologies()->attach($data['technologies']);
+
+        //prima di assegnare i nuovi technologies cancello quelli precedenti
+        //$project->technologies()->detach();
+
+        //assegno i nuovi
+        //$project->technologies()->attach($data['technologies']);
+
+        //esegue in un colpo solo l'attach e il detach
+        $project->technologies()->sync($data['technologies']);
 
         $project->update($data);
 

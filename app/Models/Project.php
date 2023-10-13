@@ -13,7 +13,6 @@ class Project extends Model
         'title',
         'description',
         'img',
-        'languages',
         'repository',
         'page_project',
         'type_id'
