@@ -20,7 +20,7 @@
                 <tr>
                     <th scope="row"> {{ $project->id }} </th>
                     <td>
-                        <a href="{{ route('admin.projects.show', $project->id) }}">{{ $project->title }}</a>
+                        {{ $project->title }}
                     </td>
                     <td> {{ $project->description }} </td>
                     <td class="my-table-img">
@@ -52,12 +52,20 @@
                            <span>//</span>
                         @endif
                     </td>
-                    <td>
-                        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+                    <td class="text-nowrap">
+                        <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-info">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+                        <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form class="d-inline-block" action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
                             @csrf
 
                             @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="Elimina">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>
