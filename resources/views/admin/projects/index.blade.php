@@ -24,7 +24,7 @@
                     </td>
                     <td> {{ $project->description }} </td>
                     <td class="my-table-img">
-                        <img class="img-fluid" src="{{ $project->img }}" alt="img project">
+                        <img class="img-fluid" src="{{ asset('/storage/' . $project->img) }}" alt="img project">
                     </td>
                     <td>
                         @foreach ($project->technologies as $tecnology)

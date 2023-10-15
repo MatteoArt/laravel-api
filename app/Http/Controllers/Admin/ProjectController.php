@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
+use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -42,13 +44,19 @@ class ProjectController extends Controller
         $data = $request->validate([
             'title' => 'required|unique:projects,title|string|max:150',
             'description' => 'required|string',
-            'img' => 'required|string|max:200',
+            'img' => 'required|image|max:4096',
             'repository' => 'required|string|max:1000',
             'page_project' => 'nullable|string|max:1000',
             'technologies' => 'required|array',
             'type_id' => 'nullable|exists:types,id'
         ]);
 
+        //salvo il file nello storage nella cartella uploads che verrà creata dalla funzione
+        //put, viene ritornato il path dell'immagine salvata con un codice univoco
+        $image_path = Storage::put('uploads', $data['img']);
+
+        //sovrascrivo il campo img con il nuovo path generato che poi verrà salvato sul db
+        $data['img'] = $image_path;
 
         $newProject = new Project();
         $newProject->fill($data);
@@ -82,12 +90,26 @@ class ProjectController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:150',
             'description' => 'required|string',
-            'img' => 'required|string|max:200',
+            'img' => 'nullable|image|max:4096',
             'repository' => 'required|string|max:1000',
             'page_project' => 'nullable|string|max:1000',
             'technologies' => 'required|array',
             'type_id' => 'nullable|exists:types,id'
         ]);
+
+        //se l'immagine viene modificata mi viene passata la chiave 'img' altrimenti
+        //la chiave non viene passata e non viene settata
+        if (isset($data['img'])) {
+            //se voglio modificare l'immagine e quindi esiste già un immagine associata al progetto che voglio modificare, prima
+            //di inserire una nuova immagine la cancello
+            if ($project->img) {
+                Storage::delete($project->img);
+            }
+
+            $image_path = Storage::put('uploads', $data['img']);
+
+            $data['img'] = $image_path;
+        }
 
         //assegnazione delle technologies al corrente project nella tabella ponte
 
@@ -111,6 +133,12 @@ class ProjectController extends Controller
         //prima di cancellare l'entità dal db elimino tramite il detach tutti i 
         //collegamenti a quel project
         $project->technologies()->detach();
+
+        //prima di cancellare il progetto dal db verifico se quel progetto aveva un immagine,
+        //se si la elimino
+        if ($project->img) {
+            Storage::delete($project->img);
+        }
         
         $project->delete();
 

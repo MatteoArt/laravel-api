@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card m-auto my-4" style="width: 22rem;">
-        <img src="{{ $project->img }}" class="card-img-top" alt="project img">
+        <img src="{{ asset('/storage/' . $project->img) }}" class="card-img-top" alt="project img">
         <div class="card-body">
             <div class="d-flex flex-row justify-content-between">
                 <h5 class="card-title"> {{ $project->title }} </h5>
