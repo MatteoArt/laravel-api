@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function index() {
         //per ora leggo tutti i dati senza paginazione tanto ho solo 6 record nel db
-        $projects = Project::all();
+        $projects = Project::with('type', 'technologies')->get();
 
         return response()->json([
             'results' => $projects,
