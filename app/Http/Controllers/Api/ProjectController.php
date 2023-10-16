@@ -14,7 +14,8 @@ class ProjectController extends Controller
         $projects = Project::all();
 
         return response()->json([
-            'results' => $projects
+            'results' => $projects,
+            'count' => $projects->count()
         ]);
     }
 }
