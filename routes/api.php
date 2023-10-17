@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //rotta dove contattare l'API
 Route::get('projects', [ProjectController::class, 'index']);
+//per recuperare i dati di un singolo record
+Route::get('projects/{id}', [ProjectController::class, 'show']);

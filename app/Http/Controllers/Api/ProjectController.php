@@ -18,4 +18,13 @@ class ProjectController extends Controller
             'count' => $projects->count()
         ]);
     }
+
+    public function show($id) {
+        $project = Project::where('id', $id)
+        ->with('type', 'technologies')->get();
+
+        return response()->json([
+            'project' => $project
+        ]);
+    }
 }
