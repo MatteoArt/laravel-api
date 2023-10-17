@@ -24,7 +24,7 @@ class ProjectController extends Controller
         ->with('type', 'technologies')->get();
 
         return response()->json([
-            'project' => $project
+            'result' => $project
         ]);
     }
 }
