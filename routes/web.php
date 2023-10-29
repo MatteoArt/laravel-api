@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])
     /* Types */
     //READ
     Route::get('/types', [TypeController::class, 'index'])->name('types.index');
+    Route::get('/types/{id}', [TypeController::class, 'show'])->name('types.show');
 
 });
 
