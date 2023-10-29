@@ -15,4 +15,13 @@ class TypeController extends Controller
             'types' => $types
         ]);
     }
+
+    public function show($id) {
+        $type = Type::findOrFail($id);
+
+        return view('admin.types.show', [
+            'type' => $type
+        ]);
+
+    }
 }
